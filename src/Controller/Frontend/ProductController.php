@@ -2,20 +2,20 @@
 
 namespace App\Controller\Frontend;
 
-use App\Entity\Order\OrderItem;
-use App\Entity\Product\Model;
-use App\Entity\Product\Product;
-use App\Filter\ProductFilter;
 use App\Form\AddToCartType;
-use App\Form\ProductFilterType;
 use App\Manager\CartManager;
+use App\Entity\Product\Model;
+use App\Filter\ProductFilter;
+use App\Entity\Order\OrderItem;
+use App\Entity\Product\Product;
+use App\Form\ProductFilterType;
 use App\Repository\Product\ModelRepository;
 use App\Repository\Product\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/sneakers', name: 'app.products')]
 class ProductController extends AbstractController

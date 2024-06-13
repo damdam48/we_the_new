@@ -40,8 +40,10 @@ class OrderItem
 
     public function getPriceTTC(): float
     {
-        return $this->getPriceHT() * (1 + $this->getProductVariant()->getTaxe()->getRate());
+        return $this->getPriceHT() * (1 + $this->getProductVariant()->getTaxe()->getRate()) ;
     }
+
+
 
     public function equals(OrderItem $orderItem): bool
     {

@@ -44,7 +44,7 @@ class Address
 
     public function __toString(): string
     {
-        return "$this->address, $this->zipCode $this->city";
+        return "$this->address, $this->zipCode, $this->city";
     }
 
     public function getId(): ?int
