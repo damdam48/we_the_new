@@ -2,16 +2,24 @@
 
 namespace App\Factory;
 
+use Stripe\Event;
 use Stripe\Stripe;
+use Stripe\Webhook;
+use App\Event\StripeEvent;
 use App\Entity\Order\Order;
 use Stripe\Checkout\Session;
 use Webmozart\Assert\Assert;
 use App\Entity\Order\OrderItem;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Stripe\Exception\SignatureVerificationException;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class StripeFactory
 {
     public function __construct(
         private string $stripeSecretKey,
+        private string $webhookSecret,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
         Stripe::setApiKey($stripeSecretKey);
         Stripe::setApiVersion('2024-04-10');
@@ -64,5 +72,63 @@ class StripeFactory
             ],
 
         ]);
+    }
+    /**
+     * permet d'analyser la requete stripe et de retourner l'évenement correspondant
+     *
+     * @param string $signature;
+     * @param mixed $body;
+     * @return JsonResponse;
+     */
+    public function handleStripeRequest(string $signature, mixed $body): JsonResponse
+    {
+        if (!$body) {
+            return new JsonResponse([
+                'status' => 'error',
+                'message' => 'Missing body content',
+            ], 404);
+        }
+
+        $event = $this->getEvent($signature, $body);
+
+        if($event instanceof JsonResponse){
+            return $event;
+        }
+
+        $event = new StripeEvent($event);
+
+        $this->eventDispatcher->dispatch($event, $event->getName());
+
+        //TODO gestion des événements srtipe et persistence en bdd
+
+        return new JsonResponse([
+            'status' =>'success',
+            'message' => 'Event received and processed successfully'
+        ]);
+    }
+
+    /**
+     * permet de decoder la requete stripe et de retourner d'évenement correspondant
+     *
+     * @param string $signature;
+     * @param mixed $body;
+     * @return Event|JsonResponse;
+     */
+    private function getEvent(string $signature, mixed $body): Event|JsonResponse
+    {
+        try {
+            $event = Webhook::constructEvent($body, $signature, $this->webhookSecret);
+        } catch (\UnexpectedValueException $e) {
+            return new JsonResponse([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        } catch (SignatureVerificationException $e) {
+            return new JsonResponse([
+                'status' => 'error',
+                'message' => $e->getMessage(),
+            ], $e->getCode());
+        }
+        return $event;
     }
 }
