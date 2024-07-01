@@ -8,6 +8,8 @@ use App\Repository\Product\GenderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
+use Symfony\Component\Serializer\Attribute\Ignore;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: GenderRepository::class)]
@@ -20,17 +22,20 @@ class Gender
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('gender:read')]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     #[Assert\Length(max: 255)]
     #[Assert\NotBlank]
+    #[Groups('gender:read')]
     private ?string $name = null;
 
     /**
      * @var Collection<int, Product>
      */
     #[ORM\OneToMany(targetEntity: Product::class, mappedBy: 'gender')]
+    #[Groups('gender:show')]
     private Collection $products;
 
     public function __construct()

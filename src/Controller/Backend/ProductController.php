@@ -20,7 +20,7 @@ class ProductController extends AbstractController
         private readonly ProductRepository $productRepository
     ) {
     }
-
+//index
     #[Route('', name: '.index', methods: ['GET'])]
     public function index(Request $request): Response
     {
@@ -32,7 +32,7 @@ class ProductController extends AbstractController
             ),
         ]);
     }
-
+//create
     #[Route('/create', name: '.create', methods: ['GET', 'POST'])]
     public function create(Request $request): Response
     {
@@ -62,7 +62,7 @@ class ProductController extends AbstractController
             'form' => $form,
         ]);
     }
-
+//update
     #[Route('/{id}/edit', name: '.edit', methods: ['GET', 'POST'])]
     public function edit(?Product $product, Request $request): Response
     {
@@ -102,7 +102,7 @@ class ProductController extends AbstractController
             'form' => $form,
         ]);
     }
-
+//delete
     #[Route('/{id}/delete', name: '.delete', methods: ['POST'])]
     public function delete(?Product $product, Request $request): Response
     {
