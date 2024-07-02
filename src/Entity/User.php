@@ -33,6 +33,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         max: 180,
         maxMessage: 'L\'email ne peut pas dépasser {{ limit }} caractères.'
     )]
+    #[Assert\Email]
     #[Assert\NotBlank]
     private ?string $email = null;
 

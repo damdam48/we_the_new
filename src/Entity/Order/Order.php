@@ -3,8 +3,6 @@
 namespace App\Entity\Order;
 
 use App\Entity\User;
-use App\Entity\Order\Payment;
-use App\Entity\Order\OrderItem;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Delivery\Shipping;
 use App\Entity\Traits\DateTimeTrait;
