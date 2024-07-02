@@ -2,7 +2,7 @@
 
 namespace App\Tests\Traits;
 
-trait Testtrait
+trait TestTrait
 {
     public function assertHasErrors(mixed $entity, int $number = 0 ): void
     {

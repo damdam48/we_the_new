@@ -4,14 +4,14 @@ namespace App\Tests\Entity;
 
 use App\Entity\User;
 use App\Repository\UserRepository;
-use App\Tests\Traits\Testtrait;
+use App\Tests\Traits\TestTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Liip\TestFixturesBundle\Services\DatabaseToolCollection;
 use Liip\TestFixturesBundle\Services\DatabaseTools\ORMDatabaseTool;
 
 class UserEntityTest extends KernelTestCase
 {
-    use Testtrait;
+    use TestTrait;
 
     protected ?ORMDatabaseTool $databaseTool = Null;
 
