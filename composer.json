@@ -1,4 +1,6 @@
 {
+    "name": "damdam48/we_the_new",
+    "description": "we_the_new Projet",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",
@@ -106,6 +108,8 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^3.6",
         "fakerphp/faker": "^1.23",
+        "hautelook/alice-bundle": "^2.14",
+        "liip/test-fixtures-bundle": "^3.0",
         "phpunit/phpunit": "^9.5",
         "symfony/browser-kit": "7.0.*",
         "symfony/css-selector": "7.0.*",
@@ -113,6 +117,7 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^7.0",
         "symfony/stopwatch": "7.0.*",
-        "symfony/web-profiler-bundle": "7.0.*"
+        "symfony/web-profiler-bundle": "7.0.*",
+        "symplify/easy-coding-standard": "^12.3"
     }
 }

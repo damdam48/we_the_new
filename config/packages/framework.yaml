@@ -14,3 +14,7 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+
+    liip_test_fixtures:
+        keep_database_and_schema: false
+        cache_metadata: true
